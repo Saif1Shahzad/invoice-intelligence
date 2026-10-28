@@ -2,14 +2,16 @@
   "github": "https://github.com/Saif1Shahzad/invoice-intelligence",
   "frontend_commit": "b4824a87c571a0bbcd9921ff57d26679be0a1120",
   "vercel": "https://invoice-intelligence-theta.vercel.app",
-  "deployment_id": "dpl_GdmdiPQr4gPH34v35iMFrasepQww",
-  "status": "READY",
-  "mode": "sample; persistent processing backend not yet hosted",
+  "status": "LIVE_HTTP_VERIFIED",
+  "mode": "Authenticated Vercel container; Groq extraction, PostgreSQL records and private Blob artifacts",
   "verification": {
-    "backend_tests": 167,
+    "backend_tests": 172,
     "frontend_tests": 14,
     "frontend_production_build": "passed",
-    "browser": "search, navigation, source highlight, zoom, verification and blocked confirmation checked"
+    "real_postgresql_blob_workflow_checks": 15,
+    "live_backend_http": "passed: authenticated health, session, document list, built frontend",
+    "live_invoice_workflow_checks": 11,
+    "live_groq_extraction": "succeeded; synthetic invoice sent to human review"
   },
   "excluded": [
     ".env",
@@ -18,5 +20,14 @@
     "reports",
     ".secrets",
     "node_modules"
-  ]
+  ],
+  "previous_frontend_deployment_id": "dpl_GdmdiPQr4gPH34v35iMFrasepQww",
+  "deployment_id": "dpl_Fof3ALaipjJgAF147JTURdQrSVYe",
+  "backend_commit": "83587e29cf647680e46e4e3aa0e51fdb2d8c0e1c",
+  "limits": {
+    "max_upload_bytes": 3500000,
+    "max_pages": 3,
+    "processing": "Keep workspace open; processing resumes on return. No unattended background worker.",
+    "quality": "Pilot requires human review; this deployment test is not a dataset accuracy evaluation."
+  }
 }
