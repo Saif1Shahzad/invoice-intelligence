@@ -29,4 +29,4 @@ Lovable design source: https://lovable.dev/projects/ad1cacdf-a9e6-447d-b732-770b
 
 ## Combined live deployment
 
-The repository root now includes a combined Vercel container deployment. In this build the frontend defaults to live mode and shares an authenticated origin with FastAPI. Persistent records are in PostgreSQL and files in private Blob. See `../deploy/vercel/README.md` for the current deployment and its request-driven processing model. The frontend-only instructions above remain useful for a standalone sample deployment.
+The existing Vercel project now has a combined container deployment in `frontend/Dockerfile.vercel`, with a reproducible Python wheel in `frontend/vendor`. In this build the frontend defaults to live mode and shares an authenticated origin with FastAPI. Persistent records are in PostgreSQL and files in private Blob. See `../deploy/vercel/README.md` for the current deployment and its request-driven processing model. The frontend-only instructions above remain useful for a standalone sample deployment.

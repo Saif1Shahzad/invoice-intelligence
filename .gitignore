@@ -29,3 +29,7 @@ frontend/.vercel/
 .vercel/
 
 /dist/
+
+/.venv-cloud/
+
+/build/

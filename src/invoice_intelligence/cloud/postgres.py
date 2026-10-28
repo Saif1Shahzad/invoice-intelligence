@@ -69,7 +69,7 @@ class PostgresStore(Store):
         from psycopg_pool import ConnectionPool
         from psycopg.rows import dict_row
         self.pool=ConnectionPool(os.environ['DATABASE_URL'],min_size=0,max_size=5,max_idle=30,timeout=20,
-            kwargs={'autocommit':True,'row_factory':dict_row,'connect_timeout':10,'options':os.getenv('INVOICE_DB_OPTIONS','')},open=True)
+            kwargs={'autocommit':True,'row_factory':dict_row,'connect_timeout':10},open=True)
 
     def close(self):
         self.pool.close()
@@ -78,7 +78,14 @@ class PostgresStore(Store):
     @contextmanager
     def connect(self):
         with self.pool.connection() as raw:
-            yield Connection(raw)
+            schema=os.getenv('INVOICE_DB_SCHEMA')
+            if schema:
+                from psycopg import sql
+                with raw.transaction():
+                    raw.execute(sql.SQL('SET LOCAL search_path TO {}').format(sql.Identifier(schema)))
+                    yield Connection(raw)
+            else:
+                yield Connection(raw)
 
     @contextmanager
     def transaction(self):

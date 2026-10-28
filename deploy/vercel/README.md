@@ -1,8 +1,8 @@
 # Live Vercel deployment
 
-The application now has a Vercel container deployment at the repository root. It builds the React frontend and Python FastAPI backend together, includes native Tesseract and stores durable records in Neon PostgreSQL and artifacts in private Vercel Blob. `/tmp` is only a hash-verified download/render cache.
+The application now has a Vercel container deployment using the existing `frontend` project directory. It builds the React frontend and Python FastAPI backend together, includes native Tesseract and stores durable records in Neon PostgreSQL and artifacts in private Vercel Blob. `/tmp` is only a hash-verified download/render cache.
 
-Use the root `Dockerfile.vercel` and root `vercel.json` with the Container framework. The old frontend-only deployment used Root Directory `frontend`; the combined deployment uses the repository root. Vercel's container runtime is currently beta and supported on all plans.
+Use `frontend/Dockerfile.vercel` and `frontend/vercel.json` with the Container framework and Root Directory `frontend`. A reproducible Python wheel in `frontend/vendor` packages the authoritative backend source from `src/`. The root Dockerfile is also supplied for independent full-repository builds. Vercel's container runtime is currently beta and supported on all plans.
 
 Required private runtime configuration:
 - `DATABASE_URL`: PostgreSQL connection string (sensitive).
