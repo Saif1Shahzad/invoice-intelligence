@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Invoice Intelligence · Review</title><link rel="stylesheet" href="/static/style.css"><script src="/static/app.js" defer></script><script src="/static/timing.js" defer></script></head>
+<body>
+<header class="top"><div><span class="eyebrow">INVOICE INTELLIGENCE · 1.1</span><h1>Review workspace</h1></div><span class="local" id="worker-health">Checking worker…</span><a href="/improvement">Current test results ↗</a><a href="/evaluation" target="_blank" rel="noopener">Earlier benchmark ↗</a><a href="/docs" target="_blank" rel="noopener">API docs ↗</a></header>
+<div id="notice" role="status" aria-live="polite">Upload an invoice or select one from the queue.</div>
+<main>
+<aside class="queue"><div class="section-heading"><h2>Documents</h2><button id="refresh">Refresh</button></div>
+<label class="upload">Upload invoice batch<input id="upload" type="file" multiple accept="application/pdf,image/png,image/jpeg,.pdf,.png,.jpg,.jpeg"></label>
+<p class="muted" id="provider-info">Checking extraction provider…</p>
+<details><summary>Export confirmed records</summary><p class="muted">Exports exclude records with changed checks or duplicate holds.</p><p><a href="/v1/exports/confirmed.csv">Download item rows (CSV)</a></p><p><a href="/v1/exports/confirmed.json">Download records (JSON)</a></p></details>
+<details><summary>Import purchase orders</summary><p class="muted">UTF-8 CSV, up to 1 MiB / 1000 rows. <a href="/v1/purchase-orders/template">Download template</a></p>
+<form id="po-import-form" class="po-import"><label>PO import reviewer<input id="po-actor" maxlength="80" required></label><label>PO import reason<input id="po-reason" maxlength="1000" required></label><label>Purchase orders CSV<input id="po-file" type="file" accept=".csv,text/csv" required></label><button id="import-po" type="submit">Import CSV</button></form><p id="po-count" class="muted"></p></details>
+<label>Filter<select id="filter"><option value="all">All documents</option><option value="pending">Awaiting review</option><option value="approved">Confirmed</option><option value="duplicate">Marked duplicate</option><option value="needs_recheck">Checks changed</option><option value="rejected">Rejected</option></select></label>
+<div id="queue" aria-label="Document queue"></div><div class="pager"><button id="older">Older</button><span id="offset">1–25</span><button id="newer">Newer</button></div><p class="muted">Filters apply to the current page of 25 documents.</p></aside>
+<section class="source"><div class="section-heading"><div><h2 id="filename">Source document</h2><a id="original" target="_blank" rel="noopener" hidden>Download original ↗</a></div><button id="reload" disabled>Reload selected</button><button id="reextract" type="button" disabled>Extract with configured provider</button></div>
+<div class="toolbar"><label>Page <select id="page" aria-label="Source page"></select></label><label>Zoom <select id="zoom"><option value="100">Fit width</option><option value="125">125%</option><option value="150">150%</option><option value="200">200%</option></select></label><span id="method" class="muted"></span></div>
+<p id="source-caption" class="source-caption">Select a field’s “Source” button to highlight its location.</p><div class="canvas-scroll"><div id="canvas"><img id="source-image" alt="Selected invoice page" hidden><svg id="highlights" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-label="Source locations"></svg></div></div>
+</section>
+<section class="editor"><div class="section-heading"><h2>Review record</h2><span id="state" class="badge">No selection</span></div>
+<nav class="review-nav" aria-label="Review navigation"><a href="#headers">Fields</a><a href="#matching">Duplicate & PO checks</a><a href="#history-panel">History</a></nav>
+<p class="muted">Check every value against the document. Yellow boxes show original source context; corrected values may differ from that text.</p>
+<section class="timer" aria-label="Review timer"><div><strong>Active review timer</strong> <output id="timer-seconds">0s</output></div><label>Session type<select id="timer-kind" aria-label="Session type"><option value="human">Human review pilot</option><option value="automated_demo">Automated demo</option></select></label><div class="actions"><button id="timer-start" type="button" disabled>Start timer</button><button id="timer-pause" type="button" disabled>Pause</button><button id="timer-stop" type="button" disabled>Finish timer</button></div><p id="timer-status" class="muted">Enter your reviewer name below, then start. Pauses while hidden or idle for 60 seconds.</p><a href="/v1/review-time-report" target="_blank" rel="noopener">Saved timing report ↗</a></section>
+<div id="new-candidate" hidden><p>A newer extraction is available. Your saved review remains preserved in history.</p><button id="rebase">Use latest extraction (resets draft)</button></div>
+<form id="review-form"><fieldset id="editor-fields" disabled><div id="headers" class="fields"></div>
+<details open><summary>Line items <span id="line-count"></span></summary><div id="lines"></div><button type="button" id="add-line">+ Add line item</button></details>
+<details><summary>Tax components</summary><div id="taxes"></div><button type="button" id="add-tax">+ Add tax component</button></details>
+<h3>Validation</h3><div id="validation"></div><details><summary>Arithmetic assumptions</summary><div id="assumptions"></div></details>
+<section class="matching-section"><h3>Duplicate & purchase-order checks</h3><p class="muted">These are live checks on saved values. Save edits first. Use your reviewer name and reason below when recording a duplicate decision.</p><div id="matching"></div></section>
+<div class="reviewer"><label>Reviewer name<input id="actor" maxlength="80" required placeholder="Your name" autocomplete="name"></label><label>Reason for this action<textarea id="reason" maxlength="1000" required placeholder="What did you check or correct?"></textarea></label><p class="muted" id="actor-note">Names are self-reported when local authentication is disabled.</p></div>
+<label class="ack"><input id="ack" type="checkbox">I checked all remaining warnings and arithmetic assumptions.</label>
+<label class="ack" id="po-exception-label" hidden><input id="po-exception" type="checkbox">I accept the listed PO discrepancies as an exception; my recorded reason explains why.</label>
+<div class="actions"><button id="save" type="submit">Save corrections & validate</button><button id="approve" type="button" class="primary">Confirm invoice</button><button id="reject" type="button" class="danger">Reject</button><button id="reopen" type="button" hidden>Reopen review</button></div><p id="save-state" class="muted"></p>
+</fieldset></form>
+<details id="history-panel"><summary>Correction & decision history</summary><div id="history"></div></details>
+<p><a id="export-current" hidden>Export this confirmed invoice (JSON)</a></p><button id="retry-processing" type="button" hidden>Retry failed processing</button>
+</section></main><footer>Human-reviewed invoice & receipt workspace · Confirmation saves a decision; it does not post or pay an invoice.</footer>
+<dialog id="discard"><form method="dialog"><h2>Discard unsaved changes?</h2><p>Your saved revisions will remain in history.</p><button value="cancel">Keep editing</button><button value="discard" class="danger">Discard changes</button></form></dialog>
+</body></html>

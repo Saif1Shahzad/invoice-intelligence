@@ -1,0 +1,2 @@
+po_number,supplier_name,currency,line_number,sku,description,quantity,unit_price
+PO-DEMO-001,Example Supplier,EUR,1,PAPER-A,Paper cartons,2,50.00

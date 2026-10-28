@@ -1,0 +1,529 @@
+{
+  "status": "measured",
+  "version": "1.0.0",
+  "created_at": "2026-10-24T12:36:24.859078+00:00",
+  "scope": "Frozen supplier-held-out InvoiceBenchmark evaluation; layouts are shared, NOT unseen template families. PDF/image variants are correlated.",
+  "splits": {
+    "calibration": {
+      "documents": 66,
+      "independent_business_invoices": 33,
+      "failures": 0,
+      "counts": {
+        "header_total": 862,
+        "header_correct": 852,
+        "absence_total": 260,
+        "absence_correct": 260,
+        "critical_assessable": 66,
+        "critical_record_correct": 63,
+        "expected_rows": 282,
+        "predicted_rows": 280,
+        "missing_rows": 2,
+        "extra_rows": 0,
+        "cell_total": 1070,
+        "cell_correct": 1047,
+        "exact_rows": 265,
+        "fully_scored_record_correct": 48
+      },
+      "field_accuracy": {
+        "supplier_name": {
+          "correct": 66,
+          "total": 66
+        },
+        "customer_name": {
+          "correct": 59,
+          "total": 66
+        },
+        "invoice_number": {
+          "correct": 64,
+          "total": 66
+        },
+        "issue_date": {
+          "correct": 66,
+          "total": 66
+        },
+        "due_date": {
+          "correct": 66,
+          "total": 66
+        },
+        "currency": {
+          "correct": 66,
+          "total": 66
+        },
+        "total": {
+          "correct": 65,
+          "total": 66
+        },
+        "payment_terms": {
+          "correct": 66,
+          "total": 66
+        },
+        "document_type": {
+          "correct": 66,
+          "total": 66
+        },
+        "tax_mode": {
+          "correct": 66,
+          "total": 66
+        },
+        "subtotal": {
+          "correct": 66,
+          "total": 66
+        },
+        "conditional_discount_rate": {
+          "correct": 12,
+          "total": 12
+        },
+        "tax_amount": {
+          "correct": 50,
+          "total": 50
+        },
+        "tax_rate": {
+          "correct": 36,
+          "total": 36
+        },
+        "document_discount": {
+          "correct": 38,
+          "total": 38
+        }
+      },
+      "slices": {
+        "mixed / pdf": {
+          "header_total": 181,
+          "header_correct": 181,
+          "absence_total": 57,
+          "absence_correct": 57,
+          "critical_assessable": 14,
+          "critical_record_correct": 14,
+          "expected_rows": 66,
+          "predicted_rows": 66,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "cell_total": 263,
+          "cell_correct": 263,
+          "exact_rows": 66,
+          "fully_scored_record_correct": 14
+        },
+        "mixed / png": {
+          "header_total": 181,
+          "header_correct": 177,
+          "absence_total": 57,
+          "absence_correct": 57,
+          "critical_assessable": 14,
+          "critical_record_correct": 14,
+          "expected_rows": 66,
+          "predicted_rows": 66,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "cell_total": 263,
+          "cell_correct": 258,
+          "exact_rows": 61,
+          "fully_scored_record_correct": 7
+        },
+        "table / pdf": {
+          "header_total": 122,
+          "header_correct": 122,
+          "absence_total": 31,
+          "absence_correct": 31,
+          "critical_assessable": 9,
+          "critical_record_correct": 9,
+          "expected_rows": 40,
+          "predicted_rows": 40,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "cell_total": 160,
+          "cell_correct": 160,
+          "exact_rows": 40,
+          "fully_scored_record_correct": 9
+        },
+        "table / png": {
+          "header_total": 122,
+          "header_correct": 117,
+          "absence_total": 31,
+          "absence_correct": 31,
+          "critical_assessable": 9,
+          "critical_record_correct": 6,
+          "expected_rows": 40,
+          "predicted_rows": 40,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "cell_total": 160,
+          "cell_correct": 154,
+          "exact_rows": 34,
+          "fully_scored_record_correct": 2
+        },
+        "paragraph / pdf": {
+          "header_total": 128,
+          "header_correct": 128,
+          "absence_total": 42,
+          "absence_correct": 42,
+          "critical_assessable": 10,
+          "critical_record_correct": 10,
+          "expected_rows": 35,
+          "predicted_rows": 35,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "cell_total": 112,
+          "cell_correct": 112,
+          "exact_rows": 35,
+          "fully_scored_record_correct": 10
+        },
+        "paragraph / png": {
+          "header_total": 128,
+          "header_correct": 127,
+          "absence_total": 42,
+          "absence_correct": 42,
+          "critical_assessable": 10,
+          "critical_record_correct": 10,
+          "expected_rows": 35,
+          "predicted_rows": 33,
+          "missing_rows": 2,
+          "extra_rows": 0,
+          "cell_total": 112,
+          "cell_correct": 100,
+          "exact_rows": 29,
+          "fully_scored_record_correct": 6
+        }
+      },
+      "row_precision": 0.9464285714285714,
+      "row_recall": 0.9397163120567376,
+      "exception_review_rate": 0.5757575757575758,
+      "human_confirmation_required": true,
+      "latency_p50_seconds": 1.0538977494998107,
+      "latency_p95_seconds": 1.7854515409999294,
+      "provider_cost_usd": "0.00",
+      "duplicates": {
+        "tp": 31,
+        "fp": 0,
+        "tn": 2112,
+        "fn": 2,
+        "precision": 1.0,
+        "recall": 0.9393939393939394,
+        "pair_count": 2145,
+        "same_supplier_negative_pairs": 344
+      },
+      "replay": {
+        "before": {
+          "documents": 66,
+          "jobs": 66,
+          "extraction_jobs": 66,
+          "extraction_runs": 66
+        },
+        "after": {
+          "documents": 66,
+          "jobs": 66,
+          "extraction_jobs": 66,
+          "extraction_runs": 66
+        },
+        "unchanged": true
+      }
+    },
+    "test": {
+      "documents": 84,
+      "independent_business_invoices": 42,
+      "failures": 0,
+      "counts": {
+        "header_total": 1098,
+        "header_correct": 1093,
+        "absence_total": 330,
+        "absence_correct": 330,
+        "critical_assessable": 84,
+        "critical_record_correct": 83,
+        "expected_rows": 390,
+        "predicted_rows": 390,
+        "missing_rows": 0,
+        "extra_rows": 0,
+        "cell_total": 1468,
+        "cell_correct": 1445,
+        "exact_rows": 368,
+        "fully_scored_record_correct": 60
+      },
+      "field_accuracy": {
+        "supplier_name": {
+          "correct": 84,
+          "total": 84
+        },
+        "customer_name": {
+          "correct": 80,
+          "total": 84
+        },
+        "invoice_number": {
+          "correct": 83,
+          "total": 84
+        },
+        "issue_date": {
+          "correct": 84,
+          "total": 84
+        },
+        "due_date": {
+          "correct": 84,
+          "total": 84
+        },
+        "currency": {
+          "correct": 84,
+          "total": 84
+        },
+        "total": {
+          "correct": 84,
+          "total": 84
+        },
+        "payment_terms": {
+          "correct": 84,
+          "total": 84
+        },
+        "document_type": {
+          "correct": 84,
+          "total": 84
+        },
+        "tax_mode": {
+          "correct": 84,
+          "total": 84
+        },
+        "subtotal": {
+          "correct": 84,
+          "total": 84
+        },
+        "conditional_discount_rate": {
+          "correct": 14,
+          "total": 14
+        },
+        "tax_amount": {
+          "correct": 64,
+          "total": 64
+        },
+        "tax_rate": {
+          "correct": 52,
+          "total": 52
+        },
+        "document_discount": {
+          "correct": 44,
+          "total": 44
+        }
+      },
+      "slices": {
+        "table / pdf": {
+          "header_total": 200,
+          "header_correct": 200,
+          "absence_total": 55,
+          "absence_correct": 55,
+          "critical_assessable": 15,
+          "critical_record_correct": 15,
+          "expected_rows": 70,
+          "predicted_rows": 70,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "cell_total": 280,
+          "cell_correct": 280,
+          "exact_rows": 70,
+          "fully_scored_record_correct": 15
+        },
+        "table / png": {
+          "header_total": 200,
+          "header_correct": 199,
+          "absence_total": 55,
+          "absence_correct": 55,
+          "critical_assessable": 15,
+          "critical_record_correct": 15,
+          "expected_rows": 70,
+          "predicted_rows": 70,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "cell_total": 280,
+          "cell_correct": 272,
+          "exact_rows": 62,
+          "fully_scored_record_correct": 7
+        },
+        "paragraph / pdf": {
+          "header_total": 142,
+          "header_correct": 142,
+          "absence_total": 45,
+          "absence_correct": 45,
+          "critical_assessable": 11,
+          "critical_record_correct": 11,
+          "expected_rows": 43,
+          "predicted_rows": 43,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "cell_total": 128,
+          "cell_correct": 128,
+          "exact_rows": 43,
+          "fully_scored_record_correct": 11
+        },
+        "paragraph / png": {
+          "header_total": 142,
+          "header_correct": 139,
+          "absence_total": 45,
+          "absence_correct": 45,
+          "critical_assessable": 11,
+          "critical_record_correct": 11,
+          "expected_rows": 43,
+          "predicted_rows": 43,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "cell_total": 128,
+          "cell_correct": 125,
+          "exact_rows": 40,
+          "fully_scored_record_correct": 5
+        },
+        "mixed / pdf": {
+          "header_total": 207,
+          "header_correct": 207,
+          "absence_total": 65,
+          "absence_correct": 65,
+          "critical_assessable": 16,
+          "critical_record_correct": 16,
+          "expected_rows": 82,
+          "predicted_rows": 82,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "cell_total": 326,
+          "cell_correct": 326,
+          "exact_rows": 82,
+          "fully_scored_record_correct": 16
+        },
+        "mixed / png": {
+          "header_total": 207,
+          "header_correct": 206,
+          "absence_total": 65,
+          "absence_correct": 65,
+          "critical_assessable": 16,
+          "critical_record_correct": 15,
+          "expected_rows": 82,
+          "predicted_rows": 82,
+          "missing_rows": 0,
+          "extra_rows": 0,
+          "cell_total": 326,
+          "cell_correct": 314,
+          "exact_rows": 71,
+          "fully_scored_record_correct": 6
+        }
+      },
+      "row_precision": 0.9435897435897436,
+      "row_recall": 0.9435897435897436,
+      "exception_review_rate": 0.5952380952380952,
+      "human_confirmation_required": true,
+      "latency_p50_seconds": 1.0617195205013559,
+      "latency_p95_seconds": 1.7653829160008172,
+      "provider_cost_usd": "0.00",
+      "duplicates": {
+        "tp": 41,
+        "fp": 0,
+        "tn": 3444,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.9761904761904762,
+        "pair_count": 3486,
+        "same_supplier_negative_pairs": 508
+      },
+      "replay": {
+        "before": {
+          "documents": 84,
+          "jobs": 84,
+          "extraction_jobs": 84,
+          "extraction_runs": 84
+        },
+        "after": {
+          "documents": 84,
+          "jobs": 84,
+          "extraction_jobs": 84,
+          "extraction_runs": 84
+        },
+        "unchanged": true
+      }
+    }
+  },
+  "calibration_sweep": [
+    {
+      "minimum_mean_ocr_score": 0,
+      "ready_documents": 28,
+      "coverage": 0.42424242424242425,
+      "incorrect_on_scored_values": 6,
+      "critical_assessable": 28,
+      "critical_errors": 0
+    },
+    {
+      "minimum_mean_ocr_score": 60,
+      "ready_documents": 28,
+      "coverage": 0.42424242424242425,
+      "incorrect_on_scored_values": 6,
+      "critical_assessable": 28,
+      "critical_errors": 0
+    },
+    {
+      "minimum_mean_ocr_score": 80,
+      "ready_documents": 28,
+      "coverage": 0.42424242424242425,
+      "incorrect_on_scored_values": 6,
+      "critical_assessable": 28,
+      "critical_errors": 0
+    },
+    {
+      "minimum_mean_ocr_score": 90,
+      "ready_documents": 28,
+      "coverage": 0.42424242424242425,
+      "incorrect_on_scored_values": 6,
+      "critical_assessable": 28,
+      "critical_errors": 0
+    },
+    {
+      "minimum_mean_ocr_score": 95,
+      "ready_documents": 18,
+      "coverage": 0.2727272727272727,
+      "incorrect_on_scored_values": 2,
+      "critical_assessable": 18,
+      "critical_errors": 0
+    },
+    {
+      "minimum_mean_ocr_score": 98,
+      "ready_documents": 15,
+      "coverage": 0.22727272727272727,
+      "incorrect_on_scored_values": 0,
+      "critical_assessable": 15,
+      "critical_errors": 0
+    },
+    {
+      "minimum_mean_ocr_score": 100,
+      "ready_documents": 15,
+      "coverage": 0.22727272727272727,
+      "incorrect_on_scored_values": 0,
+      "critical_assessable": 15,
+      "critical_errors": 0
+    }
+  ],
+  "selected_exploratory_policy": {
+    "minimum_mean_ocr_score": 100,
+    "ready_documents": 15,
+    "coverage": 0.22727272727272727,
+    "incorrect_on_scored_values": 0,
+    "critical_assessable": 15,
+    "critical_errors": 0
+  },
+  "selected_policy_test": {
+    "ready_documents": 18,
+    "incorrect_on_scored_values": 0
+  },
+  "policy_notice": "OCR score is a heuristic, not a probability. Sweep affects exploratory readiness only; all invoices require human confirmation. It does not change extraction code or auto-approve invoices.",
+  "human_review_time": null,
+  "prediction_hashes": {
+    "calibration": "f2718e5c7d3a6a68cccf3b8cc05fae51c4dea70709fb5cfcf14dc5d47fcbe452",
+    "test": "752f27d8ad4068a437b2cbf89e168f8e5f9dfda1a54da0ec415028c66cc2364e"
+  },
+  "manifest_hashes": {
+    "calibration": "1156e72dbcbbaf5736ac3f357294aef40e8ef8dca1a267ee600a659c470310ad",
+    "test": "b0e88d1fe39833193eaa0b69bd950cb8091b2d38ce717a4de0fee8151ac3155d"
+  },
+  "hardware": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "python": "3.15.0"
+  },
+  "tesseract_version": "tesseract 5.5.3",
+  "limitations": [
+    "No unfamiliar-layout accuracy claim: supplier identities are held out but template families are shared.",
+    "Scores cover labeled targets; implicit/unscored fields are not treated as independently verified. Extra rows are penalized.",
+    "Duplicate positives are provided PDF/raster counterparts, not diverse physical rescans. Pairs are correlated.",
+    "External-provider cost excludes local compute, electricity and reviewer labor.",
+    "Human review timing is instrumented but a human/manual-entry comparison has not yet been collected.",
+    "Calibration thresholds are exploratory; sample size does not establish a rare-error guarantee."
+  ],
+  "normalization": "Unicode NFKC + whitespace; exact Decimal value comparison; rows aligned by fixed source order, never by amounts."
+}

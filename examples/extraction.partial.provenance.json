@@ -1,0 +1,11 @@
+{
+  "source_pdf": "data/raw/invoicebenchmark/output/pdf/INV-2026-0002.pdf",
+  "coordinate_extraction": "pdfplumber PDF text search, reviewed by agent alongside supplied PNG",
+  "fields_annotated": [
+    "supplier_name",
+    "invoice_number",
+    "currency",
+    "total"
+  ],
+  "purpose": "Illustrate actual observation/evidence contract without fabricated coordinates"
+}

@@ -1,0 +1,6 @@
+{$INVOICE_DOMAIN} {
+    request_body {
+        max_size 21MB
+    }
+    reverse_proxy app:8000
+}

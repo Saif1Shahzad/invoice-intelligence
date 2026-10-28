@@ -1,0 +1,509 @@
+{
+  "$defs": {
+    "Evidence": {
+      "additionalProperties": false,
+      "description": "Upright-page coordinates; page numbers start at one.",
+      "properties": {
+        "page": {
+          "minimum": 1,
+          "title": "Page",
+          "type": "integer"
+        },
+        "bbox": {
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Bbox",
+          "type": "array"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "pdf_text",
+            "ocr",
+            "human"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "span_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Span Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "page",
+        "bbox",
+        "text",
+        "method"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____": {
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "status": {
+          "default": "missing",
+          "enum": [
+            "observed",
+            "missing",
+            "ambiguous",
+            "corrected"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "not_extracted",
+          "title": "Reason"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "title": "ExtractedField[Annotated[Decimal, FieldInfo(annotation=NoneType, required=True, metadata=[AllowInfNan(allow_inf_nan=False)])]]",
+      "type": "object"
+    },
+    "ExtractedField_Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata__MinLen_min_length_1_____": {
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "status": {
+          "default": "missing",
+          "enum": [
+            "observed",
+            "missing",
+            "ambiguous",
+            "corrected"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "not_extracted",
+          "title": "Reason"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "title": "ExtractedField[Annotated[str, FieldInfo(annotation=NoneType, required=True, metadata=[MinLen(min_length=1)])]]",
+      "type": "object"
+    },
+    "ExtractedField_Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata___PydanticGeneralMetadata_pattern____A-Z__3________": {
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Z]{3}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "status": {
+          "default": "missing",
+          "enum": [
+            "observed",
+            "missing",
+            "ambiguous",
+            "corrected"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "not_extracted",
+          "title": "Reason"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "title": "ExtractedField[Annotated[str, FieldInfo(annotation=NoneType, required=True, metadata=[_PydanticGeneralMetadata(pattern='^[A-Z]{3}$')])]]",
+      "type": "object"
+    },
+    "ExtractedField_Literal__exclusive____inclusive____reverse_charge___": {
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "enum": [
+                "exclusive",
+                "inclusive",
+                "reverse_charge"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "status": {
+          "default": "missing",
+          "enum": [
+            "observed",
+            "missing",
+            "ambiguous",
+            "corrected"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "not_extracted",
+          "title": "Reason"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "title": "ExtractedField[Literal['exclusive', 'inclusive', 'reverse_charge']]",
+      "type": "object"
+    },
+    "ExtractedField_Literal__invoice____credit_note___": {
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "enum": [
+                "invoice",
+                "credit_note"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "status": {
+          "default": "missing",
+          "enum": [
+            "observed",
+            "missing",
+            "ambiguous",
+            "corrected"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "not_extracted",
+          "title": "Reason"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "title": "ExtractedField[Literal['invoice', 'credit_note']]",
+      "type": "object"
+    },
+    "ExtractedField_date_": {
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "status": {
+          "default": "missing",
+          "enum": [
+            "observed",
+            "missing",
+            "ambiguous",
+            "corrected"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "not_extracted",
+          "title": "Reason"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "title": "ExtractedField[date]",
+      "type": "object"
+    },
+    "ExtractedLineItem": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "$ref": "#/$defs/ExtractedField_Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata__MinLen_min_length_1_____"
+        },
+        "sku": {
+          "$ref": "#/$defs/ExtractedField_Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata__MinLen_min_length_1_____"
+        },
+        "quantity": {
+          "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+        },
+        "unit_price": {
+          "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+        },
+        "amount": {
+          "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+        },
+        "discount_amount": {
+          "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+        },
+        "tax_rate": {
+          "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+        }
+      },
+      "title": "ExtractedLineItem",
+      "type": "object"
+    },
+    "ExtractedTax": {
+      "additionalProperties": false,
+      "properties": {
+        "rate": {
+          "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+        },
+        "amount": {
+          "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+        }
+      },
+      "title": "ExtractedTax",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Source observations or explicit human corrections; derived values stay separate.",
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "document_id": {
+      "minLength": 1,
+      "title": "Document Id",
+      "type": "string"
+    },
+    "document_type": {
+      "$ref": "#/$defs/ExtractedField_Literal__invoice____credit_note___"
+    },
+    "supplier_name": {
+      "$ref": "#/$defs/ExtractedField_Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata__MinLen_min_length_1_____"
+    },
+    "supplier_address": {
+      "$ref": "#/$defs/ExtractedField_Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata__MinLen_min_length_1_____"
+    },
+    "customer_name": {
+      "$ref": "#/$defs/ExtractedField_Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata__MinLen_min_length_1_____"
+    },
+    "invoice_number": {
+      "$ref": "#/$defs/ExtractedField_Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata__MinLen_min_length_1_____"
+    },
+    "issue_date": {
+      "$ref": "#/$defs/ExtractedField_date_"
+    },
+    "due_date": {
+      "$ref": "#/$defs/ExtractedField_date_"
+    },
+    "currency": {
+      "$ref": "#/$defs/ExtractedField_Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata___PydanticGeneralMetadata_pattern____A-Z__3________"
+    },
+    "po_number": {
+      "$ref": "#/$defs/ExtractedField_Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata__MinLen_min_length_1_____"
+    },
+    "tax_mode": {
+      "$ref": "#/$defs/ExtractedField_Literal__exclusive____inclusive____reverse_charge___"
+    },
+    "subtotal": {
+      "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+    },
+    "document_discount": {
+      "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+    },
+    "shipping": {
+      "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+    },
+    "tax_amount": {
+      "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+    },
+    "tax_rate": {
+      "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+    },
+    "total": {
+      "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+    },
+    "payment_terms": {
+      "$ref": "#/$defs/ExtractedField_Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata__MinLen_min_length_1_____"
+    },
+    "conditional_discount_rate": {
+      "$ref": "#/$defs/ExtractedField_Annotated_Decimal__FieldInfo_annotation_NoneType__required_True__metadata__AllowInfNan_allow_inf_nan_False_____"
+    },
+    "line_items": {
+      "items": {
+        "$ref": "#/$defs/ExtractedLineItem"
+      },
+      "title": "Line Items",
+      "type": "array"
+    },
+    "taxes": {
+      "items": {
+        "$ref": "#/$defs/ExtractedTax"
+      },
+      "title": "Taxes",
+      "type": "array"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "document_id"
+  ],
+  "title": "InvoiceExtraction",
+  "type": "object"
+}

@@ -1,0 +1,82 @@
+{
+  "INV-2026-0001": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "Table row description wraps onto a second line; seven item rows and prose summary are legible."
+  },
+  "INV-2026-0002": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "Swiss apostrophe formatting is visible. Printed total 188813.24 differs from canonical 183313.83."
+  },
+  "INV-2026-0006": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "VAT-inclusive row amounts are 6404.64 and 9097.80. Printed subtotal 15507.44 is 5.00 above their sum."
+  },
+  "INV-2026-0014": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "Credit-note heading and negative item amounts visible; the recipient is below the invoice body."
+  },
+  "INV-2026-0044": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "Two separate VAT lines (20% and 10%) are printed; no combined tax-total line. Adjustment reference is not a PO number."
+  },
+  "INV-2026-0005": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "One line item can have quantity two; single_item metadata means one row, not quantity one. German decimal format."
+  },
+  "INV-2026-0018": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "Eight prose rows; printed gross subtotal is 50.00 below total. Several quantity-one rows omit unit-price and quantity labels."
+  },
+  "INV-2026-0120": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "Tabular items with German-format values; summary is prose and 5% discount amount is printed."
+  },
+  "INV-2026-0183": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "Reverse-charge statement is visible and no separate VAT value is printed; long prose lines wrap."
+  },
+  "INV-2026-0148": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "Gross prices with a printed discount calculated from net subtotal; do not recompute it using a gross base without evidence."
+  },
+  "INV-2026-0025": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "One row with quantity one explicitly printed in the table; total-error example."
+  },
+  "INV-2026-0017": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "Five tabular rows and prose summary; long descriptions remain in table boundaries."
+  },
+  "INV-2026-0041": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "Negative finding: Translation description renders EN « DE in PDF text/image rather than raw JSON EN ↔ DE. Treat as a rendering/label discrepancy requiring adjudication, not OCR failure."
+  },
+  "INV-2026-0162": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "Single prose row explicitly shows quantity two and unit price; printed total is deliberately wrong."
+  },
+  "INV-2026-0125": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "A table description wraps; 2/10 net 30 is a payment condition, not a 2% reduction already applied."
+  },
+  "INV-2026-0008": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "German-format table with conditional payment terms. Printed total equals subtotal plus VAT without taking 2%."
+  },
+  "INV-2026-0082": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "Negative finding: Translation description renders EN « DE rather than raw JSON EN ↔ DE. Quantity-one prose rows omit explicit quantity and unit-price values."
+  },
+  "INV-2026-0161": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "The obfuscated percentage is a document-level adjustment; it is not a per-row discount. One row has quantity 50."
+  },
+  "INV-2026-0058": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "VAT-inclusive summary in prose, with German number formatting and a deliberately incorrect final total."
+  },
+  "INV-2026-0094": {
+    "status": "reviewed_by_agent_on_supplied_png_and_pdf_text",
+    "note": "VAT amount is printed without its rate. An adjustment percentage is a discount signal and must not be mistaken for the VAT rate."
+  }
+}

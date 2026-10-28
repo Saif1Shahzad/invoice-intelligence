@@ -1,0 +1,10 @@
+*
+!Dockerfile
+!pyproject.toml
+!README.md
+!src/
+!src/**
+!deploy/
+!deploy/entrypoint.sh
+**/__pycache__/
+**/*.pyc

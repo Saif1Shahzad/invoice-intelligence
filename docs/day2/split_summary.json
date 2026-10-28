@@ -1,0 +1,76 @@
+{
+  "seed": "invoicebenchmark-day2-20261023-v1",
+  "source_revision": "f0699d8c94468fb2fefaa22f669684b22e68c3d3",
+  "split_counts": {
+    "development": {
+      "documents": 125,
+      "suppliers": 19,
+      "layouts": {
+        "mixed": 36,
+        "table": 43,
+        "paragraph": 46
+      },
+      "consistency": {
+        "correct": 74,
+        "total_error": 26,
+        "subtotal_error": 25
+      }
+    },
+    "calibration": {
+      "documents": 33,
+      "suppliers": 6,
+      "layouts": {
+        "mixed": 14,
+        "table": 9,
+        "paragraph": 10
+      },
+      "consistency": {
+        "correct": 20,
+        "subtotal_error": 6,
+        "total_error": 7
+      }
+    },
+    "test": {
+      "documents": 42,
+      "suppliers": 7,
+      "layouts": {
+        "table": 15,
+        "paragraph": 11,
+        "mixed": 16
+      },
+      "consistency": {
+        "total_error": 7,
+        "subtotal_error": 9,
+        "correct": 26
+      }
+    }
+  },
+  "inspection_ids": [
+    "INV-2026-0001",
+    "INV-2026-0002",
+    "INV-2026-0006",
+    "INV-2026-0014",
+    "INV-2026-0044",
+    "INV-2026-0005",
+    "INV-2026-0018",
+    "INV-2026-0120",
+    "INV-2026-0183",
+    "INV-2026-0148",
+    "INV-2026-0025",
+    "INV-2026-0017",
+    "INV-2026-0041",
+    "INV-2026-0162",
+    "INV-2026-0125",
+    "INV-2026-0008",
+    "INV-2026-0082",
+    "INV-2026-0161",
+    "INV-2026-0058",
+    "INV-2026-0094"
+  ],
+  "limitation": "Supplier-disjoint splits reuse layouts. A genuinely unseen-template benchmark still needs additional templates.",
+  "manifests": {
+    "development": "568d96a6537b95c7f11ef63b5ea09fdb9d0f83ae8b2d38b56997b7bea182bbc2",
+    "calibration": "1156e72dbcbbaf5736ac3f357294aef40e8ef8dca1a267ee600a659c470310ad",
+    "test": "b0e88d1fe39833193eaa0b69bd950cb8091b2d38ce717a4de0fee8151ac3155d"
+  }
+}

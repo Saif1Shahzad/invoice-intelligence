@@ -1,0 +1,49 @@
+services:
+  app:
+    build: ..
+    restart: unless-stopped
+    env_file: ../.env.production
+    volumes:
+      - invoices:/data
+      - ../.secrets:/run/invoice-secrets:ro
+    expose: ["8000"]
+    networks: [backend]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs: [/tmp]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/livez')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  worker:
+    build: ..
+    command: ["python", "-m", "invoice_intelligence.workers.runner"]
+    restart: unless-stopped
+    env_file: ../.env.production
+    volumes:
+      - invoices:/data
+    networks: [backend]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs: [/tmp]
+  proxy:
+    image: caddy:2
+    restart: unless-stopped
+    environment:
+      INVOICE_DOMAIN: ${INVOICE_DOMAIN:?Set INVOICE_DOMAIN in .env.production}
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [backend]
+    depends_on: [app]
+networks:
+  backend:
+volumes:
+  invoices:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "document_id": "INV-2026-0002",
+  "supplier_name": {
+    "value": "ACME Laboratories International S.A.",
+    "status": "observed",
+    "reason": null,
+    "evidence": [
+      {
+        "page": 1,
+        "bbox": [
+          0.105317,
+          0.11773,
+          0.431889,
+          0.128421
+        ],
+        "text": "ACME Laboratories International S.A.",
+        "method": "human"
+      }
+    ]
+  },
+  "invoice_number": {
+    "value": "INV-2026-0002",
+    "status": "observed",
+    "reason": null,
+    "evidence": [
+      {
+        "page": 1,
+        "bbox": [
+          0.549817,
+          0.11773,
+          0.667746,
+          0.128421
+        ],
+        "text": "INV-2026-0002",
+        "method": "human"
+      }
+    ]
+  },
+  "currency": {
+    "value": "EUR",
+    "status": "observed",
+    "reason": null,
+    "evidence": [
+      {
+        "page": 1,
+        "bbox": [
+          0.105317,
+          0.551268,
+          0.272912,
+          0.561958
+        ],
+        "text": "TOTAL: 188'813.24 EUR",
+        "method": "human"
+      }
+    ]
+  },
+  "total": {
+    "value": "188813.24",
+    "status": "observed",
+    "reason": null,
+    "evidence": [
+      {
+        "page": 1,
+        "bbox": [
+          0.162452,
+          0.551268,
+          0.236793,
+          0.561958
+        ],
+        "text": "188'813.24",
+        "method": "human"
+      }
+    ]
+  },
+  "warnings": [
+    "Partial hand-annotated development example with PDF-derived source coordinates. Not model/OCR output. Unfilled fields remain not_extracted."
+  ]
+}

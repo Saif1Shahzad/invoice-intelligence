@@ -1,0 +1,15 @@
+{
+  "supplier_name": "Synthetic Supplies Ltd",
+  "invoice_number": "DEMO-001",
+  "currency": "USD",
+  "tax_mode": "exclusive",
+  "line_items": [
+    {"description": "Paper cartons", "net_amount": "100.00"},
+    {"description": "Printer supplies", "net_amount": "50.00"}
+  ],
+  "subtotal": "150.00",
+  "document_discount": "10.00",
+  "shipping": "5.00",
+  "tax": "14.00",
+  "total": "159.00"
+}
