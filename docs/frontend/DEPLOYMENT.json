@@ -1,0 +1,22 @@
+{
+  "github": "https://github.com/Saif1Shahzad/invoice-intelligence",
+  "frontend_commit": "b4824a87c571a0bbcd9921ff57d26679be0a1120",
+  "vercel": "https://invoice-intelligence-theta.vercel.app",
+  "deployment_id": "dpl_GdmdiPQr4gPH34v35iMFrasepQww",
+  "status": "READY",
+  "mode": "sample; persistent processing backend not yet hosted",
+  "verification": {
+    "backend_tests": 167,
+    "frontend_tests": 14,
+    "frontend_production_build": "passed",
+    "browser": "search, navigation, source highlight, zoom, verification and blocked confirmation checked"
+  },
+  "excluded": [
+    ".env",
+    "web_data",
+    "data",
+    "reports",
+    ".secrets",
+    "node_modules"
+  ]
+}

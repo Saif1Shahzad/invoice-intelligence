@@ -14,7 +14,7 @@ def main():
     files=[]
     for name in ['src','scripts','tests','docs','examples','frontend','output/pdf','deploy']:
         folder=ROOT/name
-        if folder.exists():files += [p for p in folder.rglob('*') if p.is_file() and '__pycache__' not in p.parts and not p.name.endswith(('.pyc','.pyo')) and not any(part.endswith('.egg-info') for part in p.parts)]
+        if folder.exists():files += [p for p in folder.rglob('*') if p.is_file() and not any(part in {'__pycache__','node_modules','dist','.output','.vercel','.tanstack','.git'} for part in p.parts) and not p.name.endswith(('.pyc','.pyo')) and not any(part.endswith('.egg-info') for part in p.parts)]
     files += [ROOT/name for name in ['README.md','pyproject.toml','requirements.lock.txt','.env.example','.gitignore','Dockerfile','.dockerignore'] if (ROOT/name).exists()]
     manifest={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(set(files))}
     with zipfile.ZipFile(target,'w',zipfile.ZIP_DEFLATED) as archive:
