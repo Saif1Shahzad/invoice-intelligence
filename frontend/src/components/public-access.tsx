@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode, type FormEvent } from 'react';
+import './privacy-controls.css';
 import { LandingPage } from './landing-page';
 import { FileCheck2, ArrowRight, ShieldCheck, Download, LogOut } from 'lucide-react';
 const live=import.meta.env['VITE_LIVE_BACKEND']==='true';
@@ -10,10 +11,13 @@ export function PrivacyControls(){
   const [choice,setChoice]=useState(()=>localStorage.getItem('ii.analytics'));
   const [open,setOpen]=useState(!choice);
   const [error,setError]=useState('');
+  const [active,setActive]=useState(false);
+  const [awake,setAwake]=useState(true);
+  useEffect(()=>{if(open||active){setAwake(true);return;}const timer=setTimeout(()=>setAwake(false),3500);return()=>clearTimeout(timer)},[open,active]);
   useEffect(()=>{if(live&&choice==='yes')api('visit',{}).catch(()=>{})},[]);
   if(!live)return null;
   const choose=async(yes:boolean)=>{try{await api('consent',{analytics:yes});localStorage.setItem('ii.analytics',yes?'yes':'no');setChoice(yes?'yes':'no');setOpen(false)}catch{setError('Could not save your choice. Please try again.')}};
-  return <><button onClick={()=>setOpen(true)} className="fixed bottom-3 left-3 z-50 rounded-full border bg-card px-3 py-1.5 text-xs shadow-sm">Privacy & cookies</button>{open&&<section aria-label="Cookie preferences" className="fixed bottom-14 left-3 right-3 z-50 max-w-md rounded-xl border bg-card p-5 shadow-xl"><h2 className="font-semibold">Your privacy, your choice</h2><p className="my-3 text-sm text-muted-foreground">A secure cookie keeps you signed in for 7 days. Optional visitor cookies count returning visits for up to 180 days. They do not identify anonymous visitors or subscribe you to emails. Outreach is a separate opt-in.</p><div className="flex gap-2"><button className="rounded-md border px-3 py-2 text-sm" onClick={()=>choose(false)}>Essential only</button><button className="rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground" onClick={()=>choose(true)}>Allow visitor analytics</button></div>{error&&<p role="alert">{error}</p>}</section>}</>;
+  return <><button aria-label="Privacy and cookie preferences" aria-expanded={open} aria-controls="privacy-preferences" onMouseEnter={()=>setActive(true)} onMouseLeave={()=>setActive(false)} onFocus={()=>setActive(true)} onBlur={()=>setActive(false)} onClick={()=>{setOpen(!open);setAwake(true)}} className={`privacy-capsule ${open||active||awake?"":"privacy-capsule-idle"}`}><ShieldCheck size={17} aria-hidden="true"/><span>Privacy & cookies</span></button>{open&&<section id="privacy-preferences" aria-label="Cookie preferences" className="fixed bottom-14 left-3 right-3 sm:left-auto z-50 max-w-md rounded-xl border bg-card p-5 shadow-xl"><h2 className="font-semibold">Your privacy, your choice</h2><p className="my-3 text-sm text-muted-foreground">A secure cookie keeps you signed in for 7 days. Optional visitor cookies count returning visits for up to 180 days. They do not identify anonymous visitors or subscribe you to emails. Outreach is a separate opt-in.</p><div className="flex gap-2"><button className="rounded-md border px-3 py-2 text-sm" onClick={()=>choose(false)}>Essential only</button><button className="rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground" onClick={()=>choose(true)}>Allow visitor analytics</button></div>{error&&<p role="alert">{error}</p>}</section>}</>;
 }
 export function AccountControls(){
   const [admin,setAdmin]=useState(false);const [user,setUser]=useState('');const [outreach,setOutreach]=useState(false);const [error,setError]=useState('');
