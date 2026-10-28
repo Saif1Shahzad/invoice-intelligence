@@ -26,3 +26,7 @@ GitHub then Vercel publication is authorized by the user. Account connections we
 Vercel hosts the frontend only. This backend requires native OCR, a durable worker and persistent SQLite/files on a separate HTTPS host. No backend host exists yet. Demo mode must be clearly labeled; live mutations remain disabled until connected. No fake live processing or accuracy statistics.
 
 The initial Lovable prompt accidentally listed PUT for review; the correct contract above supersedes it and must be supplied before accepting the integration.
+
+## Verified implementation
+
+GitHub and Vercel connections are active. Backend source commit: 54d383bfa63d67b1aafdcf8a5df7ccee662bf12a. Lovable design commit: 15f82065b9d1b3f1068e3cf3386c551687b5d66d. The incomplete Lovable scaffold was copied to frontend and completed locally as a Vite SPA with typed PATCH review mutations and source evidence. The GitHub copy is authoritative; automatic Lovable sync is not configured. Backend regression: 167/167 passed; initial frontend policy/adapter/routing tests: 14/14 passed.

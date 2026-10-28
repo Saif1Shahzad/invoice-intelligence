@@ -62,3 +62,10 @@ python -m invoice_intelligence.backup restore backups/2026-10-28 data/restored-r
 ```
 
 Backups include database and evidence artifacts plus hashes. Restore refuses modified backups and existing destinations. Protect backups and secrets using the host's encrypted storage. The app does not implement disk encryption, tax-law compliance, automatic accounting posting, payment execution or a verified labor-saving claim.
+
+## Interactive frontend
+
+The new React / TypeScript interface lives in `frontend/`. It uses Anime.js for responsive transitions, source highlighting and the upload drawer. Run `npm ci` and `npm run dev` from that folder; see `frontend/README.md`. The original FastAPI review interface remains available.
+
+Vercel deployment uses Root Directory `frontend`, framework Vite, build `npm run build`, output `dist`. Until a persistent Python backend is hosted and securely connected, the public frontend runs in clearly labeled sample mode. This frontend deployment alone does not provide hosted OCR or extraction.
+
