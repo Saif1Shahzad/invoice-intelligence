@@ -61,6 +61,9 @@ def create_app(settings=None):
         store = Store(settings)
         store.initialize()
         application.state.store = store
+        if __import__("os").getenv("INVOICE_PUBLIC_ACCOUNTS")=="true":
+            from invoice_intelligence.cloud.accounts import initialize
+            initialize(store)
         try:
             yield
         finally:
@@ -134,6 +137,11 @@ def create_app(settings=None):
         return Response(content,media_type='text/csv',headers={
             'Content-Disposition':'attachment; filename="confirmed_invoices.csv"',
             'X-Exported-Invoices':str(count),'X-Excluded-Stale-Confirmations':str(excluded)})
+
+    @application.get('/v1/exports/confirmed.xlsx')
+    def confirmed_excel(request: Request):
+        from invoice_intelligence.persistence.xlsx import confirmed_workbook
+        return Response(confirmed_workbook(request.app.state.store),media_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',headers={'Content-Disposition':'attachment; filename="confirmed_invoices.xlsx"'})
 
     @application.get('/v1/exports/confirmed.json')
     def confirmed_json(request: Request):

@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 
 import { AppStateProvider } from "@/lib/app-state";
 import { AppShell } from "@/components/app-shell";
+import { PublicAccess } from "@/components/public-access";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -90,7 +91,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" },
@@ -108,12 +109,12 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <AppStateProvider>
+      <PublicAccess><AppStateProvider>
         <AppShell>
           <Outlet />
         </AppShell>
         <Toaster />
-      </AppStateProvider>
+      </AppStateProvider></PublicAccess>
     </QueryClientProvider>
   );
 }

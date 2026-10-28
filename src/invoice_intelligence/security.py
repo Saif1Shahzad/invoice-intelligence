@@ -27,6 +27,9 @@ class AccessMiddleware(BaseHTTPMiddleware):
         super().__init__(app);self.settings=settings;self.accounts=load_accounts(settings.auth_file);self.failures=defaultdict(deque)
         if settings.deployment=='production' and not self.accounts:raise ValueError('Production authentication is required')
     async def dispatch(self,request,call_next):
+        if __import__('os').getenv('INVOICE_PUBLIC_ACCOUNTS')=='true':
+            from invoice_intelligence.cloud.accounts import dispatch
+            return await dispatch(self,request,call_next)
         # Liveness contains no account, invoice, storage or provider details.
         if self.accounts and request.url.path=='/livez':return JSONResponse({'status':'ok'})
         request.state.principal=None

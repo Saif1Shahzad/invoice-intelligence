@@ -49,6 +49,7 @@ function Documents() {
           <>
             {live && available && client && (
               <>
+                <Button variant="outline" asChild><a href={client.exportUrl("xlsx")}><Download className="mr-1.5 h-4 w-4" />Download Excel</a></Button>
                 <Button variant="outline" asChild><a href={client.exportUrl("csv")}><Download className="mr-1.5 h-4 w-4" />Confirmed CSV</a></Button>
                 <Button variant="outline" asChild><a href={client.exportUrl("json")}>JSON</a></Button>
               </>

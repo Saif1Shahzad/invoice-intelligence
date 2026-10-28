@@ -14,6 +14,9 @@ import tempfile
 from invoice_intelligence.persistence.store import Store
 from invoice_intelligence.domain.errors import DocumentError
 
+from contextvars import ContextVar
+TENANT = ContextVar("invoice_tenant", default=None)
+
 LOCK = 714_092_613
 
 class Row(dict):
@@ -78,7 +81,7 @@ class PostgresStore(Store):
     @contextmanager
     def connect(self):
         with self.pool.connection() as raw:
-            schema=os.getenv('INVOICE_DB_SCHEMA')
+            schema=TENANT.get() or os.getenv('INVOICE_DB_SCHEMA')
             if schema:
                 from psycopg import sql
                 with raw.transaction():

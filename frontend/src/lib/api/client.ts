@@ -22,7 +22,7 @@ export function createClient(base:string) {
     getDocument:(id:string)=>req<ApiDocument>(doc(id)),getReview:(id:string)=>req<ApiReview>(doc(id)+'/review'),getHistory:(id:string)=>req<ApiHistory>(doc(id)+'/review/history'),getMatching:(id:string)=>req<ApiMatching>(doc(id)+'/matching'),
     saveReview:(id:string,body:ReviewUpdate)=>req<ApiReview>(doc(id)+'/review',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}),
     decideReview:(id:string,body:ReviewDecision)=>req<ApiReview>(doc(id)+'/review/decision',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}),
-    exportUrl:(fmt:'csv'|'json')=>`/v1/exports/confirmed.${fmt}`,
+    exportUrl:(fmt:'csv'|'json'|'xlsx')=>`/v1/exports/confirmed.${fmt}`,
   };
 }
 export type ApiClient=ReturnType<typeof createClient>;

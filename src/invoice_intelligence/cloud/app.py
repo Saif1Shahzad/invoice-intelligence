@@ -12,6 +12,7 @@ from invoice_intelligence.config import Settings
 from invoice_intelligence.domain.errors import DocumentError
 
 os.environ['INVOICE_CLOUD']='vercel'
+os.environ.setdefault('INVOICE_PUBLIC_ACCOUNTS','true')
 # All durable bytes live in private Blob. This directory is only a verified cache.
 os.environ.setdefault('INVOICE_DATA_DIR','/tmp/invoice-cache')
 os.environ.setdefault('INVOICE_PROCESS_TIMEOUT','90')
