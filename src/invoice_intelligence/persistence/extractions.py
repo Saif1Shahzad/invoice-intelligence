@@ -44,7 +44,7 @@ class ExtractionStore:
         document = self.base.document(document_id)
         if document["status"] not in {"text_ready", "needs_review"} or not document["result_key"]:
             raise DocumentError("text_not_ready", "Wait for the text/OCR stage to complete before extraction.", 409)
-        path = self.settings.data_dir / document["result_key"]
+        path = self.base.artifact(document["result_key"])
         if not path.is_file():
             raise DocumentError("text_result_missing", "Stored text result is unavailable.", 409)
         try:
@@ -85,13 +85,13 @@ class ExtractionStore:
                         (id,document_id,provider,extractor_version,source_key,source_digest,status,last_error_code,last_error,created_at,updated_at)
                         VALUES (?,?,?,?,?,?,'failed',?,?,?,?)""", (str(uuid4()),row["id"],self.provider,self.version,document["result_key"],digest,error.code,error.message,now,now))
 
-    def claim(self):
+    def claim(self,document_id=None):
         now = time.time()
         with self.base.transaction() as connection:
             if self.provider=='groq':
                 last=connection.execute("SELECT MAX(a.started_at) FROM extraction_attempts a JOIN extraction_jobs j ON a.job_id=j.id WHERE j.provider='groq'").fetchone()[0]
                 if last is not None and now-last<self.settings.groq_min_interval:return None
-            rows = connection.execute("SELECT * FROM extraction_jobs WHERE provider=? AND extractor_version=? AND ((status='queued' AND retry_after<=?) OR (status='processing' AND lease_until<?)) ORDER BY created_at", (self.provider,self.version,now,now,)).fetchall()
+            rows = connection.execute("SELECT * FROM extraction_jobs WHERE provider=? AND extractor_version=? AND ((status='queued' AND retry_after<=?) OR (status='processing' AND lease_until<?)) AND (? IS NULL OR document_id=?) ORDER BY created_at", (self.provider,self.version,now,now,document_id,document_id)).fetchall()
             for row in rows:
                 if row["status"] == "processing":
                     connection.execute("UPDATE extraction_attempts SET status='lease_expired',finished_at=? WHERE token=? AND status='processing'", (now,row["lease_token"]))
@@ -106,6 +106,8 @@ class ExtractionStore:
         return None
 
     def finish(self, job, *, result_key=None, error=None, elapsed=0):
+        if not error and result_key:
+            self.base.publish_tree(str(__import__("pathlib").Path(result_key).parent))
         now = time.time()
         with self.base.transaction() as connection:
             row = connection.execute("SELECT * FROM extraction_jobs WHERE id=? AND status='processing' AND lease_token=?", (job["id"],job["lease_token"])).fetchone()
@@ -137,7 +139,7 @@ class ExtractionStore:
             "run_id":run["id"] if run else None}
         if run:
             try:
-                payload = json.loads((self.settings.data_dir / run["result_key"]).read_text())
+                payload = json.loads(self.base.artifact(run["result_key"]).read_text())
             except (OSError,ValueError):
                 output['status']='failed'
                 output['job'].update(error_code='extraction_artifact_unavailable',error='Saved extraction is missing or unreadable. Restore the data folder from backup.')

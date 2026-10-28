@@ -30,7 +30,7 @@ export function useRows(): { rows: Row[]; live: boolean; available: boolean; err
     live: true, available: conn === "reachable", error: liveError,
     rows: liveDocs.map((d) => ({
       id: d.id, filename: d.filename, media_type: d.media_type, status: d.review?.status === "approved" ? "confirmed" : d.review?.status === "rejected" ? "rejected" : d.extraction?.run_id ? "needs_review" : d.job?.status === "failed" ? "failed" : "processing", page_count: d.page_count,
-      created_at: d.created_at, error: d.job?.error ?? null, revision: d.review?.revision ?? null,
+      created_at: d.created_at, error: d.extraction?.job?.error ?? d.job?.error ?? null, revision: d.review?.revision ?? null,
     })),
   };
 }

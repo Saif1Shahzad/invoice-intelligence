@@ -6,16 +6,16 @@ from invoice_intelligence.ingestion.isolated import run_isolated
 from invoice_intelligence.persistence.extractions import ExtractionStore
 
 
-def run_extraction_once(settings, store):
+def run_extraction_once(settings, store, document_id=None):
     extraction_store = ExtractionStore(store)
     extraction_store.discover()
-    job = extraction_store.claim()
+    job = extraction_store.claim(document_id)
     if job is None:
         return None
     started = time.monotonic()
     key = f"extractions/{job['document_id']}/{job['lease_token']}"
     try:
-        source = settings.data_dir / job["source_key"]
+        source = store.hydrate_source(job["source_key"])
         if not source.is_file() or hashlib.sha256(source.read_bytes()).hexdigest() != job["source_digest"]:
             raise DocumentError("text_integrity_error", "Text input is missing or changed since extraction was queued.")
         result = run_isolated(source,settings,mode="extract",module="invoice_intelligence.extraction.pipeline",

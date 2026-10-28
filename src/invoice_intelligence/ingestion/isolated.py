@@ -16,7 +16,7 @@ def run_isolated(path, settings, *, mode="inspect", output_dir=None,
     env = os.environ.copy()
     # Native file parsers/OCR do not need provider or account secrets.
     for name in list(env):
-        if name.endswith(('_API_KEY','_TOKEN','_PASSWORD','_SECRET')):
+        if name.endswith(('_API_KEY','_TOKEN','_PASSWORD','_SECRET')) or name in {'DATABASE_URL','INVOICE_ACCOUNTS_JSON'}:
             if not (mode=='extract' and settings.extraction_provider=='groq' and name=='GROQ_API_KEY'):
                 env.pop(name,None)
     package_root = str(Path(__file__).resolve().parents[2])

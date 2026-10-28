@@ -108,7 +108,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         ) : (
           <div className="flex items-center gap-2 border-b border-border bg-accent px-4 py-2 text-xs text-accent-foreground lg:px-8">
-            <Plug className="h-3.5 w-3.5" /> <strong>Backend mode</strong> — showing records from the configured API only.
+            <Plug className="h-3.5 w-3.5" /> <strong>Backend mode</strong> — your saved invoices and reviews. Keep this workspace open while processing; unfinished jobs resume when you return.
           </div>
         )}
         <main className="flex-1 px-4 py-6 lg:px-8 lg:py-8">{children}</main>

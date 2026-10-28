@@ -71,6 +71,7 @@ def ingest(upload, key, settings, store):
         except FileExistsError:
             if hashlib.sha256(destination.read_bytes()).hexdigest() != digest:
                 raise DocumentError("storage_integrity_error", "The stored original failed its integrity check.", 500)
+        store.publish(original_key)
         return store.register(digest=digest, filename=filename, media_type=actual,
             size_bytes=size, page_count=metadata["page_count"], original_key=original_key, key=key)
     finally:

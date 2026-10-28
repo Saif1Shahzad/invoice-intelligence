@@ -8,3 +8,12 @@
 !deploy/entrypoint.sh
 **/__pycache__/
 **/*.pyc
+
+!Dockerfile.vercel
+!frontend/
+!frontend/**
+frontend/node_modules/
+frontend/dist/
+frontend/.vercel/
+frontend/.tanstack/
+frontend/.env*

@@ -10,26 +10,27 @@ from invoice_intelligence.ingestion.isolated import run_isolated
 from invoice_intelligence.persistence.store import Store
 
 
-def run_once(settings, store=None):
+def run_once(settings, store=None, document_id=None):
     if store is None:
         store = Store(settings)
         store.initialize()
     if settings.extraction_provider in {"local", "groq"}:
         from invoice_intelligence.extraction.worker import run_extraction_once
-        extraction = run_extraction_once(settings, store)
+        extraction = run_extraction_once(settings, store, document_id)
         if extraction:
             return extraction
-    job = store.claim()
+    job = store.claim(document_id)
     if job is None:
         return None
     started = time.monotonic()
     document = store.document(job["document_id"])
     output_key = f"artifacts/{document['id']}/{job['lease_token']}"
     try:
-        original = settings.data_dir / document["original_key"]
+        original = store.artifact(document["original_key"])
         if not original.exists() or hashlib.sha256(original.read_bytes()).hexdigest() != document["sha256"]:
             raise DocumentError("original_integrity_error", "Original file is missing or differs from its stored digest.")
         result = run_isolated(original, settings, mode="process", output_dir=settings.data_dir / output_key)
+        store.publish_tree(output_key)
         committed = store.finish(job, result_key=f"{output_key}/result.json", status=result["status"], elapsed=time.monotonic() - started)
         status = result["status"] if committed else "superseded"
     except DocumentError as error:

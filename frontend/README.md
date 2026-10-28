@@ -26,3 +26,7 @@ Initially the deployed site is a sample-mode frontend. Real processing needs the
 The generated `vercel.json` deliberately excludes `/v1` and `/health` from the SPA fallback so an absent backend cannot look healthy. Do not deploy the Python SQLite database to Vercel temporary storage. See `../deploy/vercel/README.md` for the backend's original proxy entry point; for this new frontend use Root Directory `frontend` instead.
 
 Lovable design source: https://lovable.dev/projects/ad1cacdf-a9e6-447d-b732-770b7d3d2853 . The GitHub copy includes local build and contract fixes; automatic synchronization with Lovable is not configured.
+
+## Combined live deployment
+
+The repository root now includes a combined Vercel container deployment. In this build the frontend defaults to live mode and shares an authenticated origin with FastAPI. Persistent records are in PostgreSQL and files in private Blob. See `../deploy/vercel/README.md` for the current deployment and its request-driven processing model. The frontend-only instructions above remain useful for a standalone sample deployment.

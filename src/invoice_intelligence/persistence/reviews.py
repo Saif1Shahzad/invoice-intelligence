@@ -56,7 +56,7 @@ class ReviewStore:
         if run is None:
             raise DocumentError('review_not_ready', 'Wait for structured extraction to finish.', 409)
         try:
-            payload = json.loads((self.base.settings.data_dir / run['result_key']).read_text())
+            payload = json.loads(self.base.artifact(run['result_key']).read_text())
             fields = InvoiceExtraction.model_validate(payload['extraction'])
         except (OSError, ValueError, KeyError):
             raise DocumentError('candidate_unavailable', 'The saved extraction candidate is unavailable.', 409) from None
@@ -98,7 +98,7 @@ class ReviewStore:
             from invoice_intelligence.persistence.matching import MatchingStore
             matching = MatchingStore(self.base).findings(connection, document_id)
         try:
-            source = json.loads((self.base.settings.data_dir / run['source_key']).read_text())
+            source = json.loads(self.base.artifact(run['source_key']).read_text())
         except (OSError, ValueError):
             raise DocumentError('review_source_unavailable', 'Pinned review source is unavailable.', 409) from None
         fields, validation = json.loads(row['fields_json']), json.loads(row['validation_json'])
@@ -248,7 +248,7 @@ class ReviewStore:
                 # A missing source image must never permit blind confirmation.
                 run = connection.execute('SELECT source_key FROM extraction_jobs WHERE id=(SELECT job_id FROM extraction_runs WHERE id=?)',(row['source_run_id'],)).fetchone()
                 try:
-                    source_path = self.base.settings.data_dir / run['source_key']
+                    source_path = self.base.artifact(run['source_key'])
                     source = json.loads(source_path.read_text())
                     if not source['pages'] or any(not (source_path.parent / f"page_{p['page']}.png").is_file() for p in source['pages']):
                         raise OSError()
@@ -292,12 +292,12 @@ class ReviewStore:
                 ON r.job_id=j.id WHERE r.id=? AND r.document_id=?''',(run_id,document_id)).fetchone()
         if row is None or page < 1:
             raise DocumentError('page_not_found','No matching source page.',404)
-        source_path = self.base.settings.data_dir / row['source_key']
+        source_path = self.base.artifact(row['source_key'])
         try:
             source = json.loads(source_path.read_text())
         except (OSError,ValueError):
             raise DocumentError('page_not_found','Pinned source is unavailable.',404) from None
-        path = source_path.parent / f'page_{page}.png'
+        path = self.base.artifact((__import__('pathlib').Path(row['source_key']).parent / f'page_{page}.png').as_posix())
         if page > len(source['pages']) or not path.is_file():
             raise DocumentError('page_not_found','No matching source page.',404)
         return path

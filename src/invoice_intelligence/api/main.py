@@ -61,7 +61,10 @@ def create_app(settings=None):
         store = Store(settings)
         store.initialize()
         application.state.store = store
-        yield
+        try:
+            yield
+        finally:
+            store.close()
 
     application = FastAPI(title='Invoice Intelligence', version=__version__, lifespan=lifespan,
         description='Human-reviewed invoice/receipt extraction. Groq is opt-in; authenticated deployment requires HTTPS.')
@@ -90,7 +93,9 @@ def create_app(settings=None):
 
     @application.get('/health')
     def health(request: Request):
-        return {'status': 'ok', 'version':__version__, 'stage': 'groq_reviewed_pilot', 'database': 'sqlite_local_single_user',
+        return {'status': 'ok', 'version':__version__, 'stage': 'groq_reviewed_pilot', 'database': 'postgresql_cloud' if __import__('os').getenv('INVOICE_CLOUD')=='vercel' else 'sqlite_local_single_user',
+            'processing_mode':'request_driven' if __import__('os').getenv('INVOICE_CLOUD')=='vercel' else 'background_worker',
+            'max_pages':settings.max_pages,'max_upload_bytes':settings.max_upload_bytes,
             'extraction_provider': settings.extraction_provider,
             'ocr_available': shutil.which(settings.tesseract_cmd) is not None,
             'authentication_enabled':bool(settings.auth_file),'deployment':settings.deployment,
@@ -174,7 +179,7 @@ def create_app(settings=None):
     @application.get('/v1/documents/{document_id}/file')
     def get_original(document_id: str, request: Request):
         document = request.app.state.store.document(document_id)
-        path = settings.data_dir / document['original_key']
+        path = request.app.state.store.artifact(document['original_key'])
         if not path.is_file():
             raise DocumentError('original_missing', 'Stored source file is unavailable.', 404)
         return FileResponse(path, media_type=document['media_type'], filename=document['filename'])
@@ -186,7 +191,7 @@ def create_app(settings=None):
         result = store.result(document)
         if not result or not 1 <= page_number <= len(result['pages']):
             raise DocumentError('page_not_found', 'No processed page exists with this number.', 404)
-        path = settings.data_dir / Path(document['result_key']).parent / f'page_{page_number}.png'
+        path = store.artifact((Path(document['result_key']).parent / f'page_{page_number}.png').as_posix())
         if not path.is_file():
             raise DocumentError('page_not_found', 'Processed page image is unavailable.', 404)
         return FileResponse(path, media_type='image/png')

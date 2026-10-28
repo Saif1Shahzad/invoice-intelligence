@@ -27,10 +27,11 @@ interface AppState {
 
 const Ctx = createContext<AppState | null>(null);
 const KEY = "ii.apiBase";
+const liveBuild = import.meta.env["VITE_LIVE_BACKEND"] === "true";
 
 export function AppStateProvider({ children }: { children: ReactNode }) {
-  const [mode, setMode] = useState<Mode>("sample");
-  const [apiBase, setApiBaseState] = useState("");
+  const [mode, setMode] = useState<Mode>(liveBuild ? "live" : "sample");
+  const [apiBase, setApiBaseState] = useState(liveBuild ? "/" : "");
   const [conn, setConn] = useState<Conn>("unconfigured");
   const [connError, setConnError] = useState<string | null>(null);
   const [sampleDocs, setSampleDocs] = useState<SampleDoc[]>(() => makeSampleDocs());
@@ -80,6 +81,30 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (mode === "live") refreshLive();
   }, [mode, refreshLive]);
+
+  useEffect(() => {
+    if (mode !== "live" || conn !== "reachable" || !client || !liveBuild) return;
+    let stopped = false;
+    let timer: ReturnType<typeof setTimeout>;
+    const poll = async () => {
+      try {
+        const docs = await client.listDocuments(50, 0);
+        if (stopped) return;
+        setLiveDocs(docs); setLiveError(null);
+        const pending = docs.find(d => d.job?.status === "queued" || d.job?.status === "processing" || d.extraction?.job?.status === "queued" || d.extraction?.job?.status === "processing");
+        if (pending) {
+          const account = await client.session();
+          if (!stopped && account.role !== "viewer") {
+            await client.processDocument(pending.id);
+            if (!stopped) refreshLive();
+          }
+        }
+      } catch (e) { if (!stopped) setLiveError(e instanceof Error ? e.message : String(e)); }
+      finally { if (!stopped) timer = setTimeout(poll, 10000); }
+    };
+    void poll();
+    return () => { stopped = true; clearTimeout(timer); };
+  }, [mode,conn,client,refreshLive]);
 
   const value: AppState = {
     mode, setMode, apiBase, setApiBase, conn, connError, recheck: () => setTick((t) => t + 1), client,

@@ -84,7 +84,7 @@ class MatchingStore:
         profiles={};unavailable=[]
         for row in rows:
             try:
-                fields=json.loads(row['fields_json']) if row['fields_json'] else json.loads((self.base.settings.data_dir/row['result_key']).read_text())['extraction']
+                fields=json.loads(row['fields_json']) if row['fields_json'] else json.loads(self.base.artifact(row['result_key']).read_text())['extraction']
                 # Values only: decision status/reasons do not invalidate a pair, but edits/runs do.
                 def plain(v):
                     if isinstance(v,dict):

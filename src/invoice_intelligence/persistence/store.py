@@ -37,6 +37,27 @@ PRAGMA user_version = 1;
 
 
 class Store:
+    def __new__(cls,settings):
+        if cls is Store and __import__('os').environ.get('INVOICE_CLOUD')=='vercel':
+            from invoice_intelligence.cloud.postgres import PostgresStore
+            return object.__new__(PostgresStore)
+        return object.__new__(cls)
+
+    def close(self):
+        pass
+
+    def artifact(self,key):
+        return self.settings.data_dir / key
+
+    def publish(self,key):
+        pass  # Local artifacts already live on the persistent filesystem.
+
+    def publish_tree(self,key):
+        pass
+
+    def hydrate_source(self,key):
+        return self.artifact(key)
+
     def __init__(self, settings):
         self.settings = settings
         settings.data_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -137,10 +158,10 @@ class Store:
             ids = [r["id"] for r in connection.execute("SELECT id FROM documents ORDER BY created_at DESC LIMIT ? OFFSET ?", (limit, offset))]
         return [self.document(identifier) for identifier in ids]
 
-    def claim(self):
+    def claim(self,document_id=None):
         now = time.time()
         with self.transaction() as connection:
-            rows = connection.execute("SELECT * FROM jobs WHERE status='queued' OR (status='processing' AND lease_until<?) ORDER BY created_at", (now,)).fetchall()
+            rows = connection.execute("SELECT * FROM jobs WHERE (status='queued' OR (status='processing' AND lease_until<?)) AND (? IS NULL OR document_id=?) ORDER BY created_at", (now,document_id,document_id)).fetchall()
             for row in rows:
                 if row["status"] == "processing":
                     connection.execute("UPDATE job_attempts SET status='lease_expired',finished_at=? WHERE token=? AND status='processing'", (now, row["lease_token"]))
@@ -188,6 +209,6 @@ class Store:
         if not document["result_key"]:
             return None
         try:
-            return json.loads((self.settings.data_dir / document["result_key"]).read_text())
+            return json.loads(self.artifact(document["result_key"]).read_text())
         except (OSError,ValueError):
             raise DocumentError('text_artifact_unavailable','Saved page/text artifacts are missing or unreadable. Restore the data folder from backup.',409) from None

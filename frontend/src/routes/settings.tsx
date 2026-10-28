@@ -40,8 +40,8 @@ function Settings() {
         <div>
           <h2 className="text-lg">Backend connection</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            The processing server has not been connected yet. Enter <code className="rounded bg-muted px-1 font-mono">/</code> to use same-origin <code className="font-mono">/v1</code> routes
-            once your processing server is deployed. No API keys are entered or stored here.
+            Enter <code className="rounded bg-muted px-1 font-mono">/</code> to use same-origin <code className="font-mono">/v1</code> routes
+            to use this application’s secure processing server. No API keys are entered or stored here.
           </p>
         </div>
         <div className="flex flex-col gap-2 sm:flex-row">
@@ -57,6 +57,7 @@ function Settings() {
         </div>
         <p className="text-xs text-muted-foreground">Live uploads and reviews require a reachable backend and an authorized reviewer account. Sample mode remains separate.</p>
       </Panel>
+      <Panel className="p-5"><h2 className="text-lg">Advanced review</h2><p className="mb-2 text-sm text-muted-foreground">Resolve duplicate pairs, import purchase orders, or reopen a previous decision.</p><a className="text-sm text-primary underline" href="/legacy-review">Open advanced review controls</a></Panel>
       <Panel className="flex items-center justify-between gap-4 p-5">
         <div><h2 className="text-lg">Sample data</h2><p className="text-sm text-muted-foreground">Restore sample records to their original state.</p></div>
         <Button variant="outline" onClick={resetSample}>Reset sample data</Button>
